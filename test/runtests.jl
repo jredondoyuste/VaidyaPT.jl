@@ -1,10 +1,12 @@
 using VaidyaPT
 using Test
 
-Ψ = Field(parfile = "test/Schwarzschild_pars.txt")     
+cd(@__DIR__)
+
+Ψ = Field(parfile = "Schwarzschild_pars.txt")     
 Initialize(Ψ)                                             
-Evolve(Ψ, "test/test_data/") 
-data = read_data("test/test_data/")
+Evolve(Ψ, "test_data/") 
+data = read_data("test_data/")
     
 @testset "VaidyaPT.jl" begin
     @test data.v[end] == 50.0
