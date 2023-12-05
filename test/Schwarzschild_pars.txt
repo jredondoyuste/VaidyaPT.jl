@@ -1,0 +1,24 @@
+# Perturbation properties
+s = 2 
+l = 2
+# Extraction radius
+r_ext = 3.0
+# Mass profile
+m_1 = 1.0
+m_2 = 1.0
+v_1 = 100.0
+tau = 10.0
+# Grid
+u_0 = 0.0
+u_end = 40.0
+v_0 = 0.0
+v_end = 50.0
+Delta_u = 0.2
+Delta_v = 0.2
+# Initial Conditions
+A_IC = 1.0
+v_IC = 15.0
+sigma_IC = 5.0
+Matter_A = 0.0
+Matter_v0 = 75.0
+Matter_sigma = 10.0
