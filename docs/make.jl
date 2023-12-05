@@ -5,7 +5,7 @@ DocMeta.setdocmeta!(VaidyaPT, :DocTestSetup, :(using VaidyaPT); recursive=true)
 
 makedocs(;
     modules=[VaidyaPT],
-    authors="Jaime <jaime.redondo.yuste@gmail.com> and contributors",
+    authors="Jaime <jaime.redondo.yuste@gmail.com>",
     repo="https://github.com/jredondoyuste/VaidyaPT.jl/blob/{commit}{path}#{line}",
     sitename="VaidyaPT.jl",
     format=Documenter.HTML(;
