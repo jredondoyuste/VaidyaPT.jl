@@ -7,6 +7,9 @@ m2_val = 1.05
 if !isdir("example/data/m2_1.05")
     mkdir("example/data/m2_1.05")
 end
+if !isdir("example/Schwarzschild")
+	mkdir("example/Schwarzschild")
+end
 
 Ψ = Field(parfile = "example/Schwarzschild_pars.txt")     # create a field object
 Initialize(Ψ)                                             # initialize the field 
@@ -22,12 +25,12 @@ Evolve(Ψ, "example/data/m2_1.05/")                          # evolve the field 
 data_S = read_data("example/data/Schwarzschild");
 data_V = read_data("example/data/m2_1.05");
 
-plot(data_S.v, abs.(data_S.ψ) .+ 1e-30, label = L"m_2 = m_1", xlabel = L"v", ylabel = L"\Psi(ℋ)", legend = :topleft)
-plot!(data_V.v, abs.(data_V.ψ) .+ 1e-30, label = L"m_2 = 1.05 m_1", xlabel = L"v", ylabel = L"\Psi(ℋ)", legend = :topleft)
+plot(data_S.v, abs.(data_S.ψ) .+ 1e-30, label = L"m_2 = m_1", xlabel = L"v", ylabel = L"\Psi(ℋ)", legend = :topright)
+plot!(data_V.v, abs.(data_V.ψ) .+ 1e-30, label = L"m_2 = 1.05 m_1", xlabel = L"v", ylabel = L"\Psi(ℋ)", legend = :topright)
 plot!(yscale = :log10)
-ylims!(1e-12,1)
+ylims!(1e-18,1)
 xlims!(0.0, 150.0)
-savefig("example/Evolution.pdf")
+savefig("example/figures/Evolution.pdf")
 
 # fit the data with damped sinusoids 
 
@@ -87,4 +90,4 @@ plot!(yscale = :log10)
 ylims!(1e-7,0.2)
 xlims!(0.0, 150.0)
 
-savefig("example/Reconstruction.pdf")
+savefig("example/figures/Reconstruction.pdf")
