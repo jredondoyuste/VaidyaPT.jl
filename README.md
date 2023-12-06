@@ -18,7 +18,7 @@ Most of the functionalities of the code are shown in the [`example.jl`](example/
 Install Julia (the code has only been tested in Julia 1.8.5) and run
 
 ```
-add https://github.com/jredondoyuste/VaidyaPT.jl.git
+]add https://github.com/jredondoyuste/VaidyaPT.jl.git
 ```
 
 Now, check that you can run the [`example.jl`](example/example.jl) script. The first time (due to compilation time) it might be somewhat slower.
