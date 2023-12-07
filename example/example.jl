@@ -1,14 +1,20 @@
 using VaidyaPT              # import the package 
 using Plots                 # import the plotting backend
-using LaTeXStrings          # import LaTeXStrings for LaTeX labels
 using StatsBase             # import StatsBase for the mean function
 
 m2_val = 1.05
+
+if !isdir("example/data")
+	mkdir("example/data")
+end
+if !isdir("example/figures")
+	mkdir("example/figures")
+end
 if !isdir("example/data/m2_1.05")
     mkdir("example/data/m2_1.05")
 end
-if !isdir("example/Schwarzschild")
-	mkdir("example/Schwarzschild")
+if !isdir("example/data/Schwarzschild")
+	mkdir("example/data/Schwarzschild")
 end
 
 Ψ = Field(parfile = "example/Schwarzschild_pars.txt")     # create a field object
@@ -23,10 +29,10 @@ Evolve(Ψ, "example/data/m2_1.05/")                          # evolve the field 
 # plot the data
 
 data_S = read_data("example/data/Schwarzschild");
-data_V = read_data("example/data/m2_1.05");
+data_V = read_data("example/data/m2_1.05");	
 
-plot(data_S.v, abs.(data_S.ψ) .+ 1e-30, label = L"m_2 = m_1", xlabel = L"v", ylabel = L"\Psi(ℋ)", legend = :topright)
-plot!(data_V.v, abs.(data_V.ψ) .+ 1e-30, label = L"m_2 = 1.05 m_1", xlabel = L"v", ylabel = L"\Psi(ℋ)", legend = :topright)
+plot(data_S.v, abs.(data_S.ψ) .+ 1e-30, label = "m_2 = m_1", xlabel = "v", ylabel = "Ψ(ℋ)", legend = :topright)
+plot!(data_V.v, abs.(data_V.ψ) .+ 1e-30, label = "m_2 = 1.05 m_1", xlabel = "v", ylabel = "Ψ(ℋ)", legend = :topright)
 plot!(yscale = :log10)
 ylims!(1e-18,1)
 xlims!(0.0, 150.0)
@@ -81,10 +87,10 @@ data_noisy = add_noise(data_cut, 1e-4)
 ψ1, _, _ = reconstruct(data_noisy.v, chain1, "ds")
 ψ2, _, _ = reconstruct(data_noisy.v, chain2, "dr"; m = mass_fun, v1 = v1, α = α_factor, β = β_factor)
 
-plot(data_noisy.v, abs.(data_noisy.ψ) .+ 1e-30, label = L"Injection", xlabel = L"v", ylabel = L"\Psi(ℋ)", legend = :topright, color = :gray)
-plot!(data_cut.v, abs.(data_cut.ψ) .+ 1e-30, label = L"Data", color= :black)
-plot!(data_noisy.v, abs.(ψ1) .+ 1e-30, label = L"DS", color = :blue)
-plot!(data_noisy.v, abs.(ψ2) .+ 1e-30, label = L"DR", color = :red)
+plot(data_noisy.v, abs.(data_noisy.ψ) .+ 1e-30, label = "Injection", xlabel = "v", ylabel = "Ψ(ℋ)", legend = :topright, color = :gray)
+plot!(data_cut.v, abs.(data_cut.ψ) .+ 1e-30, label = "Data", color= :black)
+plot!(data_noisy.v, abs.(ψ1) .+ 1e-30, label = "DS", color = :blue)
+plot!(data_noisy.v, abs.(ψ2) .+ 1e-30, label = "DR", color = :red)
 
 plot!(yscale = :log10)
 ylims!(1e-7,0.2)
