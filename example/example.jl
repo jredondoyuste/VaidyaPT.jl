@@ -4,6 +4,8 @@ using StatsBase             # import StatsBase for the mean function
 
 m2_val = 1.05
 
+# create the folders 
+
 if !isdir("example/data")
 	mkdir("example/data")
 end
@@ -17,14 +19,18 @@ if !isdir("example/data/Schwarzschild")
 	mkdir("example/data/Schwarzschild")
 end
 
-Ψ = Field(parfile = "example/Schwarzschild_pars.txt")     # create a field object
-Initialize(Ψ)                                             # initialize the field 
-Evolve(Ψ, "example/data/Schwarzschild/")                  # evolve the field and save the data in the folder "examples/data/"
-p = read_pars("example/Schwarzschild_pars.txt")             # read the parameters
-p = change_par(p, "m_2", 1.05)                              # change the final mass of the black hole
-Ψ = Field(p = p)                                            # create a new field object with the new parameters
-Initialize(Ψ)                                               # initialize the field
-Evolve(Ψ, "example/data/m2_1.05/")                          # evolve the field and save the data in the folder "examples/data/"
+if isempty(readdir("example/data/Schwarzschild"))
+	Ψ = Field(parfile = "example/Schwarzschild_pars.txt")     	# create a field object
+	Initialize(Ψ)                                             	# initialize the field 
+	Evolve(Ψ, "example/data/Schwarzschild/")                  	# evolve the field
+end
+if isempty(readdir("example/data/m2_1.05"))
+	p = read_pars("example/Schwarzschild_pars.txt")             # read the parameters
+	p = change_par(p, "m_2", 1.05)                              # change the final mass of the black hole
+	Ψ = Field(p = p)                                            # create a new field object with the new parameters
+	Initialize(Ψ)                                               # initialize the field
+	Evolve(Ψ, "example/data/m2_1.05/")                          # evolve the field 
+end
 
 # plot the data
 
@@ -38,7 +44,7 @@ ylims!(1e-18,1)
 xlims!(0.0, 150.0)
 savefig("example/figures/Evolution.pdf")
 
-# fit the data with damped sinusoids 
+# fit the data injected in gaussian noise with damped sinusoids 
 
 ic_1 = Inference_Config(
 	data_dir = "example/data/m2_1.05",
@@ -51,7 +57,7 @@ ic_1 = Inference_Config(
 
 chain1, state1 = inference(ic_1)
 
-# fit the data with the dynamical ringdown model
+# fit the data injected in gaussian noise with the dynamical ringdown model
 
 m2 = 1.05
 tau = 10.0
