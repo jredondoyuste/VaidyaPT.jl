@@ -13,13 +13,26 @@ Most of the functionalities of the code are shown in the [`example.jl`](example/
 
 ## Installation and usage
 
-Install Julia (the code has only been tested in Julia 1.8.5) and run
+Install [Julia](https://julialang.org/downloads/), and clone this repository. 
+
+Once in the repository environment, first install and precompile all the dependencies running:
 
 ```
-]add https://github.com/jredondoyuste/VaidyaPT.jl.git
+>>using Pkg
+>>Pkg.instantiate()
+>>Pkg.precompile()
+```
+This might take a few minutes as it installs all the necessary dependencies/
+
+In order to run the [`example.jl`](example/example.jl) script, you will also need the `Plots.jl` package, so run:
+
+```
+>>using Pkg
+>>Pkg.add("Plots")
 ```
 
-Now, check that you can run the [`example.jl`](example/example.jl) script. The first time (due to compilation time) it might be somewhat slower.
+Then, you should be able to run the [`example.jl`](example/example.jl) script. 
+This should output some data and some plots that showcase the basic functionalities of the code. 
 
 ## Questions and Contributions
 
