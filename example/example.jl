@@ -1,3 +1,5 @@
+cd(@__DIR__)
+
 using VaidyaPT              # import the package 
 using Plots                 # import the plotting backend
 using StatsBase             # import StatsBase for the mean function
@@ -6,48 +8,48 @@ m2_val = 1.05
 
 # create the folders 
 
-if !isdir("example/data")
-	mkdir("example/data")
+if !isdir("data")
+	mkdir("data")
 end
-if !isdir("example/figures")
-	mkdir("example/figures")
+if !isdir("figures")
+	mkdir("figures")
 end
-if !isdir("example/data/m2_1.05")
-    mkdir("example/data/m2_1.05")
+if !isdir("data/m2_1.05")
+    mkdir("data/m2_1.05")
 end
-if !isdir("example/data/Schwarzschild")
-	mkdir("example/data/Schwarzschild")
+if !isdir("data/Schwarzschild")
+	mkdir("data/Schwarzschild")
 end
 
-if isempty(readdir("example/data/Schwarzschild"))
-	Ψ = Field(parfile = "example/Schwarzschild_pars.txt")     	# create a field object
+if isempty(readdir("data/Schwarzschild"))
+	Ψ = Field(parfile = "Schwarzschild_pars.txt")     	# create a field object
 	Initialize(Ψ)                                             	# initialize the field 
-	Evolve(Ψ, "example/data/Schwarzschild/")                  	# evolve the field
+	Evolve(Ψ, "data/Schwarzschild/")                  	# evolve the field
 end
-if isempty(readdir("example/data/m2_1.05"))
-	p = read_pars("example/Schwarzschild_pars.txt")             # read the parameters
+if isempty(readdir("data/m2_1.05"))
+	p = read_pars("Schwarzschild_pars.txt")             # read the parameters
 	p = change_par(p, "m_2", 1.05)                              # change the final mass of the black hole
 	Ψ = Field(p = p)                                            # create a new field object with the new parameters
 	Initialize(Ψ)                                               # initialize the field
-	Evolve(Ψ, "example/data/m2_1.05/")                          # evolve the field 
+	Evolve(Ψ, "data/m2_1.05/")                          # evolve the field 
 end
 
 # plot the data
 
-data_S = read_data("example/data/Schwarzschild");
-data_V = read_data("example/data/m2_1.05");	
+data_S = read_data("data/Schwarzschild");
+data_V = read_data("data/m2_1.05");	
 
 plot(data_S.v, abs.(data_S.ψ) .+ 1e-30, label = "m_2 = m_1", xlabel = "v", ylabel = "Ψ(ℋ)", legend = :topright)
 plot!(data_V.v, abs.(data_V.ψ) .+ 1e-30, label = "m_2 = 1.05 m_1", xlabel = "v", ylabel = "Ψ(ℋ)", legend = :topright)
 plot!(yscale = :log10)
 ylims!(1e-18,1)
 xlims!(0.0, 150.0)
-savefig("example/figures/Evolution.pdf")
+savefig("figures/Evolution.pdf")
 
 # fit the data injected in gaussian noise with damped sinusoids 
 
 ic_1 = Inference_Config(
-	data_dir = "example/data/m2_1.05",
+	data_dir = "data/m2_1.05",
 	v0 = 10.0,
 	vend = 150.0,
 	err_type = "noise",
@@ -70,7 +72,7 @@ function mass_fun(x)
 end
 
 ic_2 = Inference_Config(
-	data_dir = "example/data/m2_1.05",
+	data_dir = "data/m2_1.05",
 	v0 = 10.0,
 	vend = 150.0,
 	err_type = "noise",
@@ -102,4 +104,4 @@ plot!(yscale = :log10)
 ylims!(1e-7,0.2)
 xlims!(0.0, 150.0)
 
-savefig("example/figures/Reconstruction.pdf")
+savefig("figures/Reconstruction.pdf")
