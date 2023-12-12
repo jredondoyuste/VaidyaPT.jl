@@ -44,13 +44,13 @@ The code can be seeen as a scheme where the master equations in more complicated
 If you make use of this code, please consider citing the companion paper using the [`CITATION.bib`](CITATION.bib) template:
 
 ```
-@article{Redondo-Yuste:2023abc,
-    author = "Redondo-Yuste, Jaime and Pereniguez, David and Cardoso, Vitor",
-    title = "{Ringdown on a dynamical spacetime}",
-    eprint = "2312.XXXXX",
+@article{Redondo-Yuste:2023ipg,
+    author = "Redondo-Yuste, Jaime and Pere\~niguez, David and Cardoso, Vitor",
+    title = "{Ringdown of a dynamical spacetime}",
+    eprint = "2312.04633",
     archivePrefix = "arXiv",
     primaryClass = "gr-qc",
-    doi = "",
+    month = "12",
     year = "2023"
 }
 ```
